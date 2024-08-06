@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Energy source: {{ source }}</h1>
+<ul>
+{% for plant in plants %}
+    <li>
+        <a href="/plants/{{ plant.plant_code }}">
+            {{ plant.plant_name }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+<div>
+    {% if plants.has_prev %}
+    <a href="{{ url_for('by_source', page=plants.prev_num, source=source) }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        Previous
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+    <span>Page {{ plants.page }} of {{ plants.pages }}</span>
+    {% if plants.has_next %}    
+    <a href="{{ url_for('by_source', page=plants.next_num, source=source) }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        Next
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+</div>
+
+{% endblock %}
